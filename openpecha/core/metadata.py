@@ -1,11 +1,11 @@
 from datetime import datetime
 from enum import Enum
-from typing import Dict, Optional, Union
+from typing import Dict, Optional, Union,List
 
 from pydantic import AnyHttpUrl, BaseModel, Extra, validator
 
 from . import ids
-
+import re
 
 class InitialCreationType(Enum):
     ocr = "ocr"
@@ -116,3 +116,42 @@ class DiplomaticPechaMetadata(PechaMetadata):
     @validator("id", pre=True, always=True)
     def set_id(cls, v):
         return v or ids.get_diplomatic_id()
+
+class AlignmentMetadata(BaseModel):
+    id:str
+    title:str
+    type: str
+    pechas: List[str]
+    alignment_to_base:Dict[str,str]
+    source_metadata: Optional[Dict] = None
+
+class InstanceMetadata(BaseModel):
+    id: str
+    title: List[str]
+    colophon: str
+    authors: List[str]
+    bdrc_id: str
+    location_info: dict
+    diplomatic_id:Optional[List[str]]
+    alignmnet_ids:Optional[List[str]]
+    collection_ids:Optional[List[str]]
+
+    @validator("diplomatic_id")
+    def validate_diplonatic_id(cls,value):
+        if not re.match(r"I.*",value):
+            raise ValueError("Pecha Id is not Diplomatic")
+
+
+class WorkMetadata(BaseModel):
+    id: str
+    title: str
+    alternative_title: Optional[str]
+    language: str
+    bdrc_work_id: str
+    authors: List[str]
+    best_instance:Optional[InstanceMetadata]
+    instances: Optional[List[InstanceMetadata]]
+
+
+class CollectionMetadata:
+    pass

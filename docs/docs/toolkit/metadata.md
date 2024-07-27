@@ -10,8 +10,8 @@ Work | W######## | `openpecha.core.metadata.WorkMetadata` |
 Initial | I######## | `openpecha.core.metadata.InitialPechaMetadata` | 
 Diplomatic | D######## | `openpecha.core.metadata.DiplomaticPechaMetadata` | 
 Open | O######## | `openpecha.core.metadata.OpenPechaMetadata` | 
-Alignment | A######## | `` | 
-Collection | C######## | `` | 
+Alignment | A######## | `openpecha.core.metadata.AlignmentMetadata` | 
+Collection | C######## | `openpecha.core.metadata.CollectionMetadata` | 
 
 here is an example to create metadata for *Initial Pecha* type
 
