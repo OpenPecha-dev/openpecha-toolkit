@@ -443,7 +443,7 @@ class OpenPechaGitRepo(OpenPechaFS):
             return
 
         if not path:
-            return download_pecha(pecha_id)
+            path = download_pecha(pecha_id)
 
         path = Path(path)
         if path.name.endswith(".opf"):
